@@ -1,6 +1,6 @@
 import { Navigator } from 'react-native';
 import React, {Component} from 'react';
-import App from '../App.js';
+import BaseApp from './src/baseApp.js';
 import { Provider } from "react-redux";
 
 export default class Reddit extends Component {
@@ -8,14 +8,15 @@ export default class Reddit extends Component {
   render() {
     return (
       <Navigator
-          initialRoute={{name: 'My First Scene', index: 0}}
+          initialRoute={{name: 'My First Scene', index: 0, component: BaseApp}}
           renderScene={(route, navigator) =>
             <MySceneComponent
               name={route.name}
-              onForward={() => {
+              onForward={(component) => {
                 var nextIndex = route.index + 1;
                 navigator.push({
                   name: 'Scene ' + nextIndex,
+                  component: component,
                   index: nextIndex,
                 });
               }}
