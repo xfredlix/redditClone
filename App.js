@@ -1,44 +1,28 @@
-import { Navigator } from 'react-native-navigation';
+import { Navigator } from 'react-native-deprecated-custom-components';
 import React, {Component} from 'react';
 import BaseApp from './screens/baseApp.js';
 import { Provider } from "react-redux";
-import { registerScreens } from './screens';
 import store from './store.js'
-// registerScreens(); 
-
-// Navigation.startTabBasedApp({
-//   tabs: [
-//     {
-//       label: 'One',
-//       screen: 'firstScreen', // this is a registered name for a screen
-//       title: 'baseApp'
-//     }
-//     // {
-//     //   label: 'Two',
-//     //   screen: 'example.SecondTabScreen',
-//     //   title: 'Screen Two'
-//     // }
-//   ]
-// });
 
 export default class Reddit extends Component {
 
   render() {
     return (
       <Navigator
-          initialRoute={{name: 'My First Scene', index: 0}}
-          renderScene={this.navigatorRenderScene.bind(this)}
+          initialRoute={{title: 'Home', index: 0}}
+          renderScene={this.navigatorRenderScene}
             />
     )
   }
 
   navigatorRenderScene(route, navigator) {
-    switch (route.id) {
+    switch (route.title) {
       case 'Home': {
         return (
           <Provider store={store}>
             <BaseApp
               navigator={navigator}
+              onBack={this.onBack}
             />
           </Provider>
         )
@@ -51,6 +35,12 @@ export default class Reddit extends Component {
           />
         )
       }
+    }
+  }
+
+  onBack() {
+    if (route.index > 0) {
+      navigator.pop();
     }
   }
 }
