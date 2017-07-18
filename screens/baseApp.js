@@ -3,6 +3,13 @@ import { Text, View } from 'react-native';
 import styles from '../styles.js';
 
 export default class App extends React.Component {
+
+  componentWillMount() {
+    fetch('https://www.reddit.com/.json')  
+    .then(function(response) {
+      console.log(response.json())
+    })
+  }
   render() {
     return (
       <View style={styles.container}>
