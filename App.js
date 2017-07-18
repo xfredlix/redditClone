@@ -1,33 +1,34 @@
-import { Navigaton } from 'react-native-navigation';
+import { Navigator } from 'react-native-navigation';
 import React, {Component} from 'react';
-import BaseApp from './src/baseApp.js';
+import BaseApp from './screens/baseApp.js';
 import { Provider } from "react-redux";
+import { registerScreens } from './screens';
+import store from './store.js'
+// registerScreens(); 
+
+// Navigation.startTabBasedApp({
+//   tabs: [
+//     {
+//       label: 'One',
+//       screen: 'firstScreen', // this is a registered name for a screen
+//       title: 'baseApp'
+//     }
+//     // {
+//     //   label: 'Two',
+//     //   screen: 'example.SecondTabScreen',
+//     //   title: 'Screen Two'
+//     // }
+//   ]
+// });
 
 export default class Reddit extends Component {
 
   render() {
     return (
-      <Navigaton
-          initialRoute={{name: 'My First Scene', index: 0, component: BaseApp}}
-          renderScene={(route, navigator) =>
-            <MySceneComponent
-              name={route.name}
-              onForward={(component) => {
-                var nextIndex = route.index + 1;
-                navigator.push({
-                  name: 'Scene ' + nextIndex,
-                  component: component,
-                  index: nextIndex,
-                });
-              }}
-              onBack={() => {
-                if (route.index > 0) {
-                  navigator.pop();
-                }
-              }}
+      <Navigator
+          initialRoute={{name: 'My First Scene', index: 0}}
+          renderScene={this.navigatorRenderScene.bind(this)}
             />
-          }
-        />
     )
   }
 
@@ -36,7 +37,7 @@ export default class Reddit extends Component {
       case 'Home': {
         return (
           <Provider store={store}>
-            <App
+            <BaseApp
               navigator={navigator}
             />
           </Provider>
