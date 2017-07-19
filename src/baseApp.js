@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, FlatList, RefreshControl, Image } from 'react-native';
 import styles from '../styles.js';
 import * as app from '../actions/appActions.js';
 import Thread from './thread.js';
@@ -10,23 +10,51 @@ class App extends React.Component {
 
   componentWillMount() {
     if (this.props.state.threads.length === 0 && this.props.actions.loadRedditData) {
-      fetch('https://www.reddit.com/.json')  
-      .then(res => res.json())
-      .then(json => this.props.actions.loadRedditData(json.data.children))
-      .catch(err => console.error(err))
+      this.fetchReddit()
     }
   }
 
-  renderThread() {
+  onRefresh() {
+    let {actions, state} = this.props;
+    actions.refreshing();
+    this.fetchReddit().then(() => actions.refreshing());
+  }
 
+  fetchReddit() {
+    let {actions} = this.props;
+    return fetch('https://www.reddit.com/.json')  
+    .then(res => res.json())
+    .then(json => actions.loadRedditData(json.data.children))
+    .catch(err => console.error(err))
+  }
+
+  renderThread() {
+    let {state, navigator} = this.props;
+    return (
+      <View style={styles.threadContainer} >
+        <FlatList
+          refreshControl={
+            <RefreshControl
+              refreshing={this.props.state.refreshing}
+              onRefresh={this.onRefresh.bind(this)}
+              />
+          }
+          data={state.threads}
+          renderItem={(thread, i) => <Thread thread={thread} navigator={this.props.navigator}/>}
+          keyExtractor={(item, index) => index}
+        />
+      </View>
+    )
   }
 
   render() {
-    console.log(Object.keys(this.props.state.threads))
     return (
       <View style={styles.container}>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
+        <View style={styles.waterMark}>
+          <Image source={require('../pictures/Reddit_logo.png')} style={styles.logo} />
+          <Text style={styles.title}>Reddit Clone</Text>
+        </View>
+        {this.renderThread()}
       </View>
     );
   }
