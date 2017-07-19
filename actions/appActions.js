@@ -7,9 +7,9 @@ export default appAction = {
     }
   },
 
-  rendering: ()=> {
+  refreshing: ()=> {
     return {
-      type: 'RENDERING'
+      type: 'REFRESHING'
     }
   },
 
