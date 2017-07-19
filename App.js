@@ -1,6 +1,6 @@
 import { Navigator } from 'react-native-deprecated-custom-components';
 import React, {Component} from 'react';
-import BaseApp from './screens/baseApp.js';
+import BaseApp from './src/baseApp.js';
 import { Provider } from "react-redux";
 import store from './store.js'
 

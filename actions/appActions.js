@@ -1,8 +1,9 @@
 export default appAction = {
 
-  showSearchBar: () => {
+  loadRedditData: data => {
     return {
-      type: 'LOAD_REDDIT_DATA'
+      type: 'LOAD_REDDIT_DATA',
+      payload: data
     }
   },
 
