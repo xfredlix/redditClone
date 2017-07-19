@@ -13,10 +13,4 @@ export default appAction = {
     }
   },
 
-  laggedOut: () => {
-    return {
-      type: 'LAG_OUT'
-    }
-  },
-
 }

@@ -38,7 +38,6 @@ export default styles = StyleSheet.create({
   },
   waterMark: {
     flexDirection: 'column',
-    marginTop: 30,
     height: 50,
     width: 100,
   },
@@ -65,5 +64,13 @@ export default styles = StyleSheet.create({
   },
   up: {
     color: '#9FB6CD'
+  },
+  backWaterMark: {
+    flexDirection: 'row',
+    marginTop: 30,
+  },
+  backButton: {
+    height: 50, 
+    width: 50
   }
 });

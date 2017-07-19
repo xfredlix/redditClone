@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, FlatList, RefreshControl, Image } from 'react-native';
+import { Text, View, FlatList, RefreshControl, Image, TouchableOpacity } from 'react-native';
 import styles from '../styles.js';
 import * as app from '../actions/appActions.js';
 import Thread from './thread.js';
@@ -9,8 +9,9 @@ import { bindActionCreators } from 'redux';
 class App extends React.Component {
 
   componentWillMount() {
-    if (this.props.state.threads.length === 0 && this.props.actions.loadRedditData) {
-      this.fetchReddit()
+    let {actions, state} = this.props
+    if (state.threads.length === 0 && actions.loadRedditData) {
+      this.fetchReddit();
     }
   }
 
@@ -28,6 +29,10 @@ class App extends React.Component {
     .catch(err => console.error(err))
   }
 
+  goBack() {
+    this.props.navigator.pop();
+  }
+
   renderThread() {
     let {state, navigator} = this.props;
     return (
@@ -35,12 +40,12 @@ class App extends React.Component {
         <FlatList
           refreshControl={
             <RefreshControl
-              refreshing={this.props.state.refreshing}
+              refreshing={state.refreshing}
               onRefresh={this.onRefresh.bind(this)}
               />
           }
           data={state.threads}
-          renderItem={(thread, i) => <Thread thread={thread} navigator={this.props.navigator}/>}
+          renderItem={(thread) => <Thread thread={thread} navigator={navigator}/>}
           keyExtractor={(item, index) => index}
         />
       </View>
@@ -50,10 +55,13 @@ class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.waterMark}>
-          <Image source={require('../pictures/Reddit_logo.png')} style={styles.logo} />
-          <Text style={styles.title}>Reddit Clone</Text>
-        </View>
+        <TouchableOpacity onPress={this.goBack.bind(this)} style={styles.backWaterMark}>
+          <Image style={styles.backButton} source={require('../pictures/backButton.png')} />
+          <View style={styles.waterMark}>
+            <Image source={require('../pictures/Reddit_logo.png')} style={styles.logo} />
+            <Text style={styles.title}>Reddit Clone</Text>
+          </View>
+        </TouchableOpacity>
         {this.renderThread()}
       </View>
     );

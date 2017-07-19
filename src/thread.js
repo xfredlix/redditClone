@@ -3,10 +3,7 @@ import { Text, View, Image, TouchableOpacity } from 'react-native';
 import styles from '../styles.js';
 
 export default class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.navigateAway = this.navigateAway.bind(this);
-  }
+
   navigateAway() {
     this.props.navigator.push({title: 'Home'});
   }
@@ -16,7 +13,7 @@ export default class App extends React.Component {
     let url = data.thumbnail ? data.thumbnail : false;
     let picture = url ? {uri: url} : require('../pictures/NoImg.png');
     return (
-      <TouchableOpacity onPress={this.navigateAway} style={styles.thread}>
+      <TouchableOpacity onPress={this.navigateAway.bind(this)} style={styles.thread}>
         <View style={styles.upVote}>
           <Image style={styles.upArrow} source={require('../pictures/upArrow.png')} />
           <Text style={styles.up}> {data.ups} </Text>

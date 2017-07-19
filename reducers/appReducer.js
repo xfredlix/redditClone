@@ -15,11 +15,6 @@ export default function reducer ( state = {
         refreshing: !state.refreshing,
       }
     }
-    case 'LAG_OUT': {
-      return {
-        ...state,
-      }
-    }
   }
   return state;
 }

@@ -9,7 +9,7 @@ export default class Reddit extends Component {
   render() {
     return (
       <Navigator
-          initialRoute={{title: 'Home', index: 0}}
+          initialRoute={{title: 'Home'}}
           renderScene={this.navigatorRenderScene}
             />
     )
@@ -22,25 +22,11 @@ export default class Reddit extends Component {
           <Provider store={store}>
             <BaseApp
               navigator={navigator}
-              onBack={this.onBack}
             />
           </Provider>
         )
       }
-
-      case 'Camera': {
-        return (
-          <camera
-            navigator={navigator}
-          />
-        )
-      }
     }
   }
 
-  onBack() {
-    if (route.index > 0) {
-      navigator.pop();
-    }
-  }
 }
