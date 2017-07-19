@@ -1,5 +1,6 @@
 export default function reducer ( state = {
   threads: [],
+  refreshing: false,
 }, action) {
   switch (action.type) {
     case 'LOAD_REDDIT_DATA': {
@@ -8,10 +9,10 @@ export default function reducer ( state = {
         threads: action.payload,   
       }
     }
-    case 'RENDERING': {
+    case 'REFRESHING': {
       return {
         ...state,
-        // rendering: !state.rendering,
+        refreshing: !state.refreshing,
       }
     }
     case 'LAG_OUT': {
