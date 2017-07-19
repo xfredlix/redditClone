@@ -7,7 +7,7 @@ export default styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    flexDirection: 'row',
+    // flexDirection: 'row',
   },
   thumbtack: {
     height: 50,
@@ -16,7 +16,12 @@ export default styles = StyleSheet.create({
   },
   threadContainer: {
     flexDirection: 'row',
-    margin: 10,
+    marginTop: 20,
+    marginBottom: 10,
+  },
+  thread: {
+    flexDirection: 'row',
+    marginBottom: 20,
   },
   upVote: {
     flexDirection: 'column',
@@ -33,11 +38,32 @@ export default styles = StyleSheet.create({
   },
   waterMark: {
     flexDirection: 'column',
-    height: 200,
-    width: 60,
+    marginTop: 30,
+    height: 50,
+    width: 100,
   },
   logo: {
     width: 50,
-    hegith: 50,
+    height: 50,
   },
+  writing: {
+    // flexDirection: 'row',
+  },
+  threadTitle: {
+    fontSize: 14,
+    flex: 0.8,
+    flexWrap: 'wrap',
+    width: Dimensions.get('window').width * .6,
+  },
+  subreddit: {
+    fontSize: 10,
+    color: '#B4CDCD'
+  },
+  comments: {
+    fontSize: 10,
+    color: '#9FB6CD'
+  },
+  up: {
+    color: '#9FB6CD'
+  }
 });
